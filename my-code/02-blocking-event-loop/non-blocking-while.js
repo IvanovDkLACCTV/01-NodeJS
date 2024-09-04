@@ -6,8 +6,8 @@ setTimeout(() => isRunning = false, 19);
 process.nextTick(() => console.log('Next tick'));
 
 const setImmediatePromise = () => new Promise((resolve, reject) => {
-    //setImmediate(() => resolve());
-    resolve()
+    setImmediate(() => resolve());
+    //resolve()
 })
 
 const whileLoop = async (params) => {

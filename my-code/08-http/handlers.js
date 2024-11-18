@@ -4,6 +4,14 @@ const data = require("./data.json") // Загружаем объект с commen
 //const data = require("./data.js")
 const comments = data.comments
 
+const getHome = (req, res) => {
+  res.statusCode = 200
+  res.setHeader("Content-Type", "text/html")
+  res.write("<html><body><div>")
+  res.write("<h1>Luke, I am your backend server</h1>")
+  res.write("</div></body></html>")
+}
+
 let getHTML = (req, res) => {
   res.statusCode = 200
   res.setHeader("Content-Type", "text/html")
@@ -64,4 +72,5 @@ module.exports = {
   getComments,
   handleNotFound,
   postComment,
+  getHome,
 }

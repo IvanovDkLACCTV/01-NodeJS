@@ -1,6 +1,7 @@
 const { log } = require("console")
 const fs = require("fs")
 const data = require("./data.json") // Загружаем объект с comments
+//const data = require("./data.js")
 const comments = data.comments
 
 let getHTML = (req, res) => {
@@ -30,19 +31,31 @@ let handleNotFound = (req, res) => {
 }
 
 let postComment = (req, res) => {
-  let comment = ""
-  req.on("data", (chunk) => (comment += chunk))
-  req.on("end", () => {
-    //comments.push(JSON.parse(comment))
-    const parsedComment = JSON.parse(comment)
-    comments.push(parsedComment)
-    fs.writeFileSync(
-      "./08-http/files/data.json",
-      JSON.stringify(comments, null, 2)
-    )
-    res.statusCode = 201
-    res.end("Comment created")
-  })
+  res.setHeader("Content-Type", "text/plain")
+
+  if (req.headers["content-type"] === "application/json") {
+    let comment = ""
+    req.on("data", (chunk) => (comment += chunk))
+    req.on("end", () => {
+      try {
+        //comments.push(JSON.parse(comment))
+        const parsedComment = JSON.parse(comment)
+        comments.push(parsedComment)
+        fs.writeFileSync(
+          "./08-http/files/data.json",
+          JSON.stringify(comments, null, 2)
+        )
+        res.statusCode = 201
+        res.end("Comment created")
+      } catch (err) {
+        res.statusCode = 400
+        res.end("Invalid JSON")
+      }
+    })
+  } else {
+    res.statusCode = 400
+    res.end("Data must be in JSON format")
+  }
 }
 
 module.exports = {

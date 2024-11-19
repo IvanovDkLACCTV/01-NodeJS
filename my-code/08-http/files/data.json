@@ -19,9 +19,5 @@
     "name": "Jill",
     "comment": "This is my fourth comment"
   },
-  {
-    "id": 5,
-    "name": "Lora",
-    "comment": "This is my fourth comment"
-  }
+  "id=5&author=John&text=Something"
 ]

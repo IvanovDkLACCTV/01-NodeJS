@@ -1,4 +1,6 @@
 const http = require("http")
+const path = require("path")
+const fs = require("fs")
 const {
   getHTML,
   getText,
@@ -10,7 +12,7 @@ const {
 
 log = console.log
 
-const PORT = 5000
+const PORT = 5001
 
 const server = http.createServer((req, res) => {
   if (req.method === "GET" && req.url === "/") {
@@ -29,6 +31,14 @@ const server = http.createServer((req, res) => {
 
   if (req.method === "POST" && req.url === "/comments") {
     return postComment(req, res)
+  }
+
+  if (req.url.match(/\.(css)$/)) {
+    const cssPath = path.join(__dirname, "files", req.url)
+    const fileStream = fs.createReadStream(cssPath)
+    res.writeHead(200, { "Content-Type": "text/css" })
+    fileStream.pipe(res)
+    return
   }
 
   return handleNotFound(req, res)

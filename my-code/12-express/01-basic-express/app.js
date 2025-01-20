@@ -1,7 +1,9 @@
-const http = require("http")
+const express = require("express")
 
-const server = http.createServer((req, res) => {
-  res.end("Responce from the server")
+const app = express()
+
+app.get("/", (req, res) => {
+  res.send("Hello, World!")
 })
 
-server.listen(5005, () => console.log("Server was started on port 5005"))
+app.listen(5005, () => console.log("Server was started on port 5005"))

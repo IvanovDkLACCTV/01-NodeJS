@@ -24,8 +24,9 @@ const getCommentHandler = (req, res) => {
 }
 
 app.get("/", getRootandler)
-app.get("/comments", getCommentsHandler)
-app.post("/comments", postCommentsHandler)
+app.route("/comments").get(getCommentsHandler).post(postCommentsHandler)
+// app.get("/comments", getCommentsHandler)
+// app.post("/comments", postCommentsHandler)
 app.get("/comments/:commentId", getCommentHandler)
 
 //start server

@@ -4,7 +4,7 @@ const express = require("express")
 const log = console.log
 const router = express.Router()
 
-//handlers
+//controllers
 const getUsersHandler = (req, res) => {
   res.send("Get users route")
 }

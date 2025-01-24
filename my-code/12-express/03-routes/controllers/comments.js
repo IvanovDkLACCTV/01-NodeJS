@@ -18,5 +18,4 @@ module.exports = {
   postCommentsHandler,
   getSingleCommentHandler,
   deleteSingleCommentHandler,
-  ...rest,
 }

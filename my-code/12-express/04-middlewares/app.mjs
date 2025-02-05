@@ -6,14 +6,14 @@ const log = console.log
 
 const app = express()
 
-// const logger = (req, res, next) => {
-//   log(req.method, req.path)
-//   next()
-// }
+app.use(morgan("tiny"))
 
-// app.use(logger)
-
-app.use(morgan("combined"))
+app.use((req, res, next) => {
+  let data = ""
+  req.on("data", (chunk) => (data += chunk))
+  req.on("end", () => log(JSON.parse(data)))
+  next()
+})
 
 app.use((req, res) => res.send("This is Express.JS server"))
 
